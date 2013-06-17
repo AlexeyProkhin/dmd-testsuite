@@ -217,6 +217,8 @@ void test1_call_inout(T)( int n )
         if( t1 == t2 ) results_1[n] |= 2;
 }
 
+version (LDC) version (OSX) version (X86) version = BrokenRealABI;
+
 void D_test1( )
 {
         // Run Tests
@@ -242,12 +244,14 @@ void D_test1( )
         }
         assert( pass );
 
+version (BrokenRealABI) {} else {
         results_1[0..5] = 0;
         foreach( n, T; R_T )
         {
                 test1_call_out!(T)(n);
                 test1_call_inout!(T)(n);
         }
+}
 }
 
 /************************************************************************/

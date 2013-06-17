@@ -6367,6 +6367,8 @@ void test10091()
 }
 
 /***************************************************/
+// LDC_FIXME: GitHub issue #363 (frontend reports wrong struct layout for real fields).
+version (LDC) version (OSX) version (X86) version = BrokenRealABI;
 
 int main()
 {
@@ -6472,7 +6474,7 @@ int main()
     test92();
     test4536();
     test93();
-    test94();
+    version (BrokenRealABI) {} else test94();
     test95();
     test5403();
     test96();
